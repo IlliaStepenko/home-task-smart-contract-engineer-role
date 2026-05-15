@@ -15,6 +15,12 @@ async function main() {
   const marketAddress = await predictionMarket.getAddress();
   console.log("PredictionMarket:", marketAddress);
 
+  const WorldCupBetting  = await ethers.getContractFactory("WorldCupBetting");
+  const worldCupBetting  = await WorldCupBetting.deploy(repAddress);
+  await worldCupBetting.waitForDeployment();
+  const worldCupBettingAddress  = await predictionMarket.getAddress();
+  console.log("WorldCupBetting:", worldCupBettingAddress );
+
   await reputationSystem.setPredictionMarket(marketAddress);
   console.log("Connected contracts");
 
@@ -26,6 +32,7 @@ async function main() {
 
   console.log("\n=== SAVE THESE ADDRESSES ===");
   console.log("NEXT_PUBLIC_PREDICTION_MARKET_ADDRESS=", marketAddress);
+  console.log("NEXT_PUBLIC_WORLDCUPBETTING_SYSTEM_ADDRESS=", marketAddress);
   console.log("NEXT_PUBLIC_REPUTATION_SYSTEM_ADDRESS=", repAddress);
   console.log("NEXT_PUBLIC_MOCK_USDC_ADDRESS=", usdcAddress);
 }
